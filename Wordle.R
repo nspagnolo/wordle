@@ -62,8 +62,11 @@ letters <- wordle %>%
   mutate(x=replace(x, x==TRUE, 1)) %>% 
   mutate(y=replace(y, y==TRUE, 1)) %>% 
   mutate(z=replace(z, z==TRUE, 1)) %>%
-  gather(a:z,key="letter", value="value") %>% 
-  group_by(letter)
+  adorn_totals() %>% 
+  filter(word=="Total") %>% 
+  select(-word) %>% 
+  gather(a:z,key="letter", value="Total") %>% 
+  group_by(letter) %>% view()
   
 
 
