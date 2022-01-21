@@ -74,7 +74,7 @@ wordle %>%
   filter(str_detect(word,"r")) %>%
   filter(str_detect(word,"o")) %>%
   filter(str_detect(word,"s")) %>%
-  filter(str_detect(word,"e")) %>% view()
+  filter(str_detect(word,"e")) 
   
         
          
