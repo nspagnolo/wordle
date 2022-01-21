@@ -66,10 +66,15 @@ letters <- wordle %>%
   select(-word) %>% 
   gather(a:z,key="letter", value="Total") %>% 
   group_by(letter) %>% view()
+
+
+wordle %>%
+  select(-count) %>%
+  filter(str_detect(word,"a")) %>%
+  filter(str_detect(word,"r")) %>%
+  filter(str_detect(word,"o")) %>%
+  filter(str_detect(word,"s")) %>%
+  filter(str_detect(word,"e")) %>% view()
   
-
-
-letters %>% 
-  group_by(letter)
-  ggplot()+
-  geom_bar(aes(value))
+        
+         
