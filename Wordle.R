@@ -7,6 +7,7 @@ word_list <- read.xlsx('dictionnary words.xlsx')
 wordle<-word_list %>% 
   filter(count=="5")
 
+#find letter count
 letters <- wordle %>% 
   select(-count) %>% 
   mutate(a=str_detect(word, "a")) %>%
@@ -66,6 +67,12 @@ letters <- wordle %>%
   select(-word) %>% 
   gather(a:z,key="letter", value="Total") %>% 
   group_by(letter) %>% view()
+
+#replace letters with count to find total count per word
+word_sum <- wordle %>% 
+  select(-count) %>% 
+  separate("word", c('0','1', '2', '3','4','5'), sep="") %>% 
+  filter(-'0')
 
 
 wordle %>%
