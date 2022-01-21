@@ -1,6 +1,5 @@
 library(tidyverse)
 library('openxlsx')
-library('stringi')
 library(janitor)
 
 word_list <- read.xlsx('dictionnary words.xlsx')
