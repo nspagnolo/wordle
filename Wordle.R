@@ -69,7 +69,6 @@ letters <- wordle %>%
 
 
 wordle %>%
-  select(-count) %>%
   filter(str_detect(word,"a")) %>%
   filter(str_detect(word,"r")) %>%
   filter(str_detect(word,"o")) %>%
