@@ -101,11 +101,12 @@ word_sum[word_sum=="y"] <- "574"
 word_sum[word_sum=="z"] <- "65"
 
 
-word_score <-as.data.frame(apply(word_sum, 2, as.numeric))
+word_num <-as.data.frame(apply(word_sum, 2, as.numeric))
 row_sums<-
-  word_score %>% 
-  rowSums() %>% view()
+  word_num %>% 
+  rowSums()
+  
 
-word_pts<-merge(row_sums,wordle)
+word_score<-merge(row_sums,wordle, by=row.name)
 
          
