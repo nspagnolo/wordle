@@ -2,14 +2,14 @@ library(tidyverse)
 library('openxlsx')
 library(janitor)
 
-word_list <- read.xlsx('dictionnary words.xlsx')
+word_list <- read.xlsx('Desktop/Data science projects/Wordle/dictionnary words.xlsx')
 
 wordle<-word_list %>% 
-  filter(count=="5")
+  filter(count=="5") %>% 
+  select(-count)
 
 #find letter count
 letters <- wordle %>% 
-  select(-count) %>% 
   mutate(a=str_detect(word, "a")) %>%
   mutate(b=str_detect(word, "b")) %>% 
   mutate(c=str_detect(word, "c")) %>%
@@ -66,21 +66,46 @@ letters <- wordle %>%
   filter(word=="Total") %>% 
   select(-word) %>% 
   gather(a:z,key="letter", value="Total") %>% 
-  group_by(letter) %>% view()
+  group_by(letter) 
 
 #replace letters with count to find total count per word
 word_sum <- wordle %>% 
-  select(-count) %>% 
-  separate("word", c('0','1', '2', '3','4','5'), sep="") %>% 
-  filter(-'0')
+  separate("word", c('l0','l1','l2', 'l3', 'l4','l5'), sep="") %>% 
+  select('l1':'l5')
+
+word_sum[word_sum=="a"] <- "1690" 
+word_sum[word_sum=="b"] <- "486"
+word_sum[word_sum=="c"] <- "678"
+word_sum[word_sum=="d"] <- "853"
+word_sum[word_sum=="e"] <- "2009"
+word_sum[word_sum=="f"] <- "376"
+word_sum[word_sum=="g"] <- "477"
+word_sum[word_sum=="h"] <- "570"
+word_sum[word_sum=="i"] <- "1155"
+word_sum[word_sum=="j"] <- "66"
+word_sum[word_sum=="k"] <- "405"
+word_sum[word_sum=="l"] <- "1115"
+word_sum[word_sum=="m"] <- "571"
+word_sum[word_sum=="n"] <- "952"
+word_sum[word_sum=="o"] <- "1196"
+word_sum[word_sum=="p"] <- "651"
+word_sum[word_sum=="q"] <- "40"
+word_sum[word_sum=="r"] <- "1370"
+word_sum[word_sum=="s"] <- "2000"
+word_sum[word_sum=="t"] <- "1094"
+word_sum[word_sum=="u"] <- "732"
+word_sum[word_sum=="v"] <- "237"
+word_sum[word_sum=="w"] <- "368"
+word_sum[word_sum=="x"] <- "87"
+word_sum[word_sum=="y"] <- "574"
+word_sum[word_sum=="z"] <- "65"
 
 
-wordle %>%
-  filter(str_detect(word,"a")) %>%
-  filter(str_detect(word,"r")) %>%
-  filter(str_detect(word,"o")) %>%
-  filter(str_detect(word,"s")) %>%
-  filter(str_detect(word,"e")) 
-  
-        
+word_score <-as.data.frame(apply(word_sum, 2, as.numeric))
+row_sums<-
+  word_score %>% 
+  rowSums() %>% view()
+
+word_pts<-merge(row_sums,wordle)
+
          
